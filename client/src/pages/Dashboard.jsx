@@ -51,7 +51,6 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* refreshKey makes stats re-fetch after every create/edit/delete */}
       <StatsSection refreshKey={refreshKey} />
 
       <div className="toolbar">

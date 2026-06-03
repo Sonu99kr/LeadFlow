@@ -3,7 +3,6 @@ const router = express.Router();
 const Lead = require("../models/Lead");
 const { validateLead, validateLeadUpdate } = require("../middleware/validate");
 
-// GET /api/leads — fetch all leads with search, filter, sort, pagination
 router.get("/", async (req, res, next) => {
   try {
     const {
@@ -29,7 +28,13 @@ router.get("/", async (req, res, next) => {
       query.status = status;
     }
 
-    const allowedSortFields = ["name", "email", "company", "status", "createdAt"];
+    const allowedSortFields = [
+      "name",
+      "email",
+      "company",
+      "status",
+      "createdAt",
+    ];
     const sortField = allowedSortFields.includes(sortBy) ? sortBy : "createdAt";
     const sortOrder = order === "asc" ? 1 : -1;
 
@@ -88,9 +93,7 @@ router.get("/stats", async (req, res, next) => {
     });
 
     const conversionRate =
-      totalLeads > 0
-        ? Math.round((byStatus.Converted / totalLeads) * 100)
-        : 0;
+      totalLeads > 0 ? Math.round((byStatus.Converted / totalLeads) * 100) : 0;
 
     res.json({
       success: true,
@@ -127,7 +130,14 @@ router.post("/", validateLead, async (req, res, next) => {
   try {
     const { name, email, phone, company, status, notes } = req.body;
 
-    const lead = await Lead.create({ name, email, phone, company, status, notes });
+    const lead = await Lead.create({
+      name,
+      email,
+      phone,
+      company,
+      status,
+      notes,
+    });
 
     res.status(201).json({ success: true, data: lead });
   } catch (err) {
@@ -143,7 +153,7 @@ router.put("/:id", validateLeadUpdate, async (req, res, next) => {
     const lead = await Lead.findByIdAndUpdate(
       req.params.id,
       { name, email, phone, company, status, notes },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     ).lean();
 
     if (!lead) {

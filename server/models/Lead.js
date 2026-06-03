@@ -47,13 +47,11 @@ const leadSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-// Index for text search across key fields
 leadSchema.index({ name: "text", email: "text", company: "text" });
 
-// Index for common sort/filter operations
 leadSchema.index({ status: 1, createdAt: -1 });
 
 const Lead = mongoose.model("Lead", leadSchema);

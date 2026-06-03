@@ -12,13 +12,11 @@ function useStats(refreshKey) {
       const res = await leadsApi.getStats();
       setStats(res.data.data);
     } catch {
-      // stats are supplemental — fail silently
     } finally {
       setLoading(false);
     }
   }, []);
 
-  // re-fetch whenever refreshKey changes (i.e. after any create/edit/delete)
   useEffect(() => {
     fetchStats();
   }, [fetchStats, refreshKey]);
