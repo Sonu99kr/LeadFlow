@@ -1,20 +1,41 @@
 import StatusBadge from "./StatusBadge";
-import { SORT_OPTIONS, LEAD_STATUSES } from "../utils/constants";
 
 function SortIcon({ active, direction }) {
   if (!active) {
     return (
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.35 }}>
+      <svg
+        width="10"
+        height="10"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        style={{ opacity: 0.35 }}
+      >
         <path d="M12 5v14M5 12l7-7 7 7" />
       </svg>
     );
   }
   return direction === "asc" ? (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    >
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   ) : (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    >
       <path d="M12 5v14M5 12l7 7 7-7" />
     </svg>
   );
@@ -27,7 +48,10 @@ function SkeletonRows({ count = 5 }) {
         <td key={j}>
           <div
             className="skeleton"
-            style={{ height: 14, width: j === 0 ? "70%" : j === 5 ? "60px" : "80%" }}
+            style={{
+              height: 14,
+              width: j === 0 ? "70%" : j === 5 ? "60px" : "80%",
+            }}
           />
         </td>
       ))}
@@ -68,18 +92,26 @@ export default function LeadsTable({
 
   const formatDate = (iso) => {
     const d = new Date(iso);
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   const { total, page, totalPages, limit } = pagination || {};
   const start = total > 0 ? (page - 1) * limit + 1 : 0;
-  const end   = total > 0 ? Math.min(page * limit, total) : 0;
+  const end = total > 0 ? Math.min(page * limit, total) : 0;
 
   const getPageRange = () => {
     if (!totalPages) return [];
     const delta = 1;
     const range = [];
-    for (let i = Math.max(2, page - delta); i <= Math.min(totalPages - 1, page + delta); i++) {
+    for (
+      let i = Math.max(2, page - delta);
+      i <= Math.min(totalPages - 1, page + delta);
+      i++
+    ) {
       range.push(i);
     }
     if (page - delta > 2) range.unshift("...");
@@ -115,7 +147,14 @@ export default function LeadsTable({
                 <td colSpan={6}>
                   <div className="empty-state">
                     <div className="empty-icon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" strokeWidth="1.5">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="var(--text-3)"
+                        strokeWidth="1.5"
+                      >
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
                         <circle cx="9" cy="7" r="4" />
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
@@ -155,7 +194,14 @@ export default function LeadsTable({
                         title="Edit lead"
                         aria-label="Edit"
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                           <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
@@ -167,7 +213,14 @@ export default function LeadsTable({
                         aria-label="Delete"
                         style={{ color: "var(--danger)" }}
                       >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
                           <path d="M3 6h18M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                         </svg>
                       </button>
@@ -183,7 +236,11 @@ export default function LeadsTable({
       {pagination && total > 0 && (
         <div className="pagination">
           <div className="pagination-info">
-            Showing <strong>{start}–{end}</strong> of <strong>{total}</strong> leads
+            Showing{" "}
+            <strong>
+              {start}–{end}
+            </strong>{" "}
+            of <strong>{total}</strong> leads
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -194,7 +251,9 @@ export default function LeadsTable({
               style={{ padding: "5px 28px 5px 8px", fontSize: "0.8rem" }}
             >
               {[5, 10, 20, 50].map((n) => (
-                <option key={n} value={n}>{n} / page</option>
+                <option key={n} value={n}>
+                  {n} / page
+                </option>
               ))}
             </select>
 
@@ -205,14 +264,27 @@ export default function LeadsTable({
                 disabled={page <= 1}
                 aria-label="Previous"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </button>
 
               {getPageRange().map((p, i) =>
                 p === "..." ? (
-                  <span key={`ellipsis-${i}`} className="page-btn" style={{ cursor: "default", border: "none" }}>…</span>
+                  <span
+                    key={`ellipsis-${i}`}
+                    className="page-btn"
+                    style={{ cursor: "default", border: "none" }}
+                  >
+                    …
+                  </span>
                 ) : (
                   <button
                     key={p}
@@ -221,7 +293,7 @@ export default function LeadsTable({
                   >
                     {p}
                   </button>
-                )
+                ),
               )}
 
               <button
@@ -230,7 +302,14 @@ export default function LeadsTable({
                 disabled={page >= totalPages}
                 aria-label="Next"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
