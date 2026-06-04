@@ -1,4 +1,5 @@
 import StatusBadge from "./StatusBadge";
+import { SORT_OPTIONS, LEAD_STATUSES } from "../utils/constants";
 
 function SortIcon({ active, direction }) {
   if (!active) {
